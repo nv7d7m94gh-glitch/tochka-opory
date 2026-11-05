@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Центр «Точка опоры»</title>
+</head><body style="margin:0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Layout: спокойная редакционная сетка — узкая колонка текста, много воздуха, мотив из двух пересекающихся кругов (опора) */
+:root{
+  --bg:#FFFFFF; --surface:#F2F6F4; --fg:#22282A; --muted:#66706F; --line:#DCE4E1;
+  --accent:#3E6E66; --sage:#9DBFB7; --sand:#D9A47E; --on-accent:#FFFFFF;
+  --font-display:"Lora", Georgia, "Times New Roman", serif;
+  --font-body:"Golos Text", "Segoe UI", Roboto, Arial, sans-serif;
+  --max:1080px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --surface:#1C2321; --fg:#E7ECEA; --muted:#9BA6A3; --line:#2C3633;
+  --accent:#8EBDB3; --sage:#5E8C83; --sand:#D9A47E; --on-accent:#10201C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --surface:#1C2321; --fg:#E7ECEA; --muted:#9BA6A3; --line:#2C3633;
+  --accent:#8EBDB3; --sage:#5E8C83; --sand:#D9A47E; --on-accent:#10201C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--font-display);font-weight:500;line-height:1.2;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* Шапка */
+.site-header{border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;flex-direction:column;gap:20px;padding-block:28px 24px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--fg)}
+.brand svg{flex:none}
+.brand-name{font-family:var(--font-display);font-size:22px;line-height:1.15}
+.brand-sub{display:block;font-family:var(--font-body);font-size:13px;color:var(--muted);margin-top:2px}
+.nav{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px}
+.nav a{color:var(--fg);text-decoration:none;padding-block:4px;border-bottom:1px solid transparent}
+.nav a:hover,.nav a[aria-current="page"]{border-bottom-color:var(--accent);color:var(--accent)}
+.nav .label{color:var(--muted);font-size:13px;align-self:center}
+
+main{padding-block:48px 64px}
+.view{display:flex;flex-direction:column;gap:56px}
+
+/* Главная: аннотация */
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero h1{font-size:clamp(32px,5vw,50px)}
+.hero p{font-size:18px;color:var(--muted);max-width:56ch;margin-top:18px}
+.hero-art{justify-self:end;max-width:100%}
+.spheres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 32px}
+.sphere{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--line)}
+.sphere h3{font-size:19px}
+.sphere p{color:var(--muted);font-size:15px}
+.section-head{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.section-head h2{font-size:28px}
+
+/* Специалисты: карточки-ссылки */
+.team{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.person{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--fg)}
+.person .ph{aspect-ratio:4/5;max-width:100%;border-radius:12px;overflow:hidden;background:var(--surface)}
+.person .ph svg{display:block;width:100%;height:100%}
+.person strong{font-family:var(--font-display);font-weight:500;font-size:18px;line-height:1.25}
+.person span{color:var(--muted);font-size:14px}
+.person:hover strong{color:var(--accent)}
+
+/* Подвал */
+.site-footer{background:var(--surface)}
+.site-footer .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(2,minmax(0,1fr));gap:32px;padding-block:40px}
+.site-footer h3{font-size:18px;margin-bottom:10px}
+.site-footer p,.site-footer li{font-size:15px;color:var(--muted)}
+.site-footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
+.site-footer .copy{grid-column:1/-1;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 16px;border-radius:999px;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:500;font-size:15px}
+
+/* Страница специалиста */
+.crumbs{font-size:14px;color:var(--muted)}
+.crumbs a{color:var(--muted)}
+.profile{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:48px;align-items:start}
+.profile .ph{aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:var(--surface);max-width:100%}
+.profile .ph svg{display:block;width:100%;height:100%}
+.profile h1{font-size:clamp(30px,4.4vw,44px)}
+.role{font-size:18px;color:var(--accent);margin-top:8px}
+.profile .about{display:flex;flex-direction:column;gap:16px;max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:8px}
+.fact{padding:14px 16px;border-radius:12px;background:var(--surface)}
+.fact b{display:block;font-family:var(--font-display);font-weight:500;font-size:24px;font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.tags li{font-size:14px;padding:5px 12px;border:1px solid var(--line);border-radius:999px}
+.chart-block{display:flex;flex-direction:column;gap:12px}
+.chart-block h2{font-size:24px}
+.chart-block p{color:var(--muted);font-size:15px}
+.chart{overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:320px;height:auto}
+.next{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px}
+
+/* Контакты */
+.contacts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:40px;align-items:start}
+.contacts dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0}
+.contacts dt{color:var(--muted);font-size:14px}
+.contacts dd{margin:0}
+.map{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+.map svg{display:block;width:100%;height:auto}
+.route{display:flex;flex-direction:column;gap:10px;padding-left:20px;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--muted);padding:12px 16px;border-top:1px solid var(--line)}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+@media (max-width:860px){
+  .hero,.profile,.contacts{grid-template-columns:minmax(0,1fr)}
+  .hero-art{justify-self:start;width:220px}
+  .spheres{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .team{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .site-footer .wrap{grid-template-columns:minmax(0,1fr)}
+  .profile .ph{max-width:300px}
+}
+@media (max-width:520px){
+  .spheres{grid-template-columns:minmax(0,1fr)}
+  .facts{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .view{animation:fade .35s ease both}
+  @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="На главную">
+      <svg width="52" height="44" viewBox="0 0 52 44" aria-hidden="true">
+        <circle cx="18" cy="22" r="16" fill="var(--sage)"/>
+        <circle cx="32" cy="22" r="16" fill="var(--accent)" fill-opacity=".85"/>
+        <circle cx="25" cy="38" r="4" fill="var(--sand)"/>
+      </svg>
+      <span><span class="brand-name">Точка опоры</span><span class="brand-sub">Центр психологического консультирования</span></span>
+    </a>
+    <nav class="nav" aria-label="Специалисты центра" id="nav">
+      <span class="label">Специалисты:</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app" aria-live="polite"></main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <h3>Точка опоры</h3>
+      <p>Центр психологического консультирования для взрослых, детей и семей.</p>
+      <a class="btn" href="#contacts">Как нас найти →</a>
+    </div>
+    <div>
+      <h3>Контакты</h3>
+      <ul>
+        <li>Москва, Яблоневый пер., д. 7, офис 12</li>
+        <li>+7 (495) 000-00-00</li>
+        <li>hello@tochka-opory.example</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Часы работы</h3>
+      <ul>
+        <li>Пн–Пт: 9:00–21:00</li>
+        <li>Сб: 10:00–18:00</li>
+        <li>Вс: выходной</li>
+      </ul>
+    </div>
+    <p class="copy">Учебный проект. Центр, специалисты, адрес и телефон вымышлены. <a href="#contacts">Страница контактов</a></p>
+  </div>
+</footer>
+
+<script>
+const SPECIALISTS = [
+  { id:"orlova", name:"Анна Орлова", role:"Семейный психолог",
+    short:"Семья и пары",
+    about:[
+      "Работает с парами и семьями в периоды напряжения: частые ссоры, охлаждение отношений, измена, решение о разводе.",
+      "Помогает родителям выстроить контакт с ребёнком, договориться о правилах и пережить возрастные кризисы вместе."
+    ],
+    topics:["Конфликты в паре","Развод и расставание","Детско-родительские отношения","Семейные кризисы"],
+    method:"Системная семейная терапия", years:12, format:"Очно и онлайн",
+    clients:[48,71,96,124,152],
+    look:{skin:"#E9C3A6", hair:"#5A3A2A", style:"long", shirt:"#3E6E66", bg:"#E3EEEA"} },
+  { id:"lebedev", name:"Михаил Лебедев", role:"Клинический психолог",
+    short:"Тревога и депрессия",
+    about:[
+      "Специализируется на тревожных состояниях: панические атаки, навязчивые мысли, бессонница, постоянное беспокойство.",
+      "Проводит психологическую диагностику и подбирает краткосрочные программы помощи при сниженном настроении и апатии."
+    ],
+    topics:["Тревожные расстройства","Панические атаки","Депрессивные состояния","Психодиагностика"],
+    method:"Когнитивно-поведенческая терапия", years:9, format:"Очно и онлайн",
+    clients:[35,58,80,109,141],
+    look:{skin:"#DDB08F", hair:"#2E2722", style:"short", shirt:"#6F7782", bg:"#E8ECEF"} },
+  { id:"sokolova", name:"Екатерина Соколова", role:"Детский и подростковый психолог",
+    short:"Дети и подростки",
+    about:[
+      "Помогает детям от 4 до 17 лет: адаптация к детскому саду и школе, страхи, трудности в учёбе и общении со сверстниками.",
+      "Сопровождает подростков в период взросления и консультирует родителей, как поддержать ребёнка дома."
+    ],
+    topics:["Адаптация к школе","Детские страхи","Подростковый кризис","Консультации родителей"],
+    method:"Игровая и арт-терапия", years:7, format:"Очно",
+    clients:[22,39,61,88,117],
+    look:{skin:"#F0CDB4", hair:"#B07A48", style:"bun", shirt:"#D9A47E", bg:"#F4EBE3"} },
+  { id:"volkov", name:"Дмитрий Волков", role:"Кризисный психолог",
+    short:"Кризисы и утраты",
+    about:[
+      "Работает с людьми в острых жизненных ситуациях: утрата близкого, травмирующие события, внезапные перемены.",
+      "Помогает справиться с профессиональным выгоранием и восстановить ресурс после длительного стресса."
+    ],
+    topics:["Переживание утраты","Психологическая травма","Профессиональное выгорание","Острый стресс"],
+    method:"Травмафокусированная терапия", years:15, format:"Очно и онлайн",
+    clients:[41,55,77,98,126],
+    look:{skin:"#D4A584", hair:"#6B6B6B", style:"beard", shirt:"#2F4F49", bg:"#E1EAE7"} },
+];
+const YEARS = [2021,2022,2023,2024,2025];
+const SPHERES = [
+  ["Семейное консультирование","Отношения в паре, конфликты, развод, воспитание детей."],
+  ["Детская и подростковая психология","Адаптация, страхи, учёба, взросление."],
+  ["Тревога и депрессия","Панические атаки, бессонница, сниженное настроение."],
+  ["Кризисные состояния","Утрата, травмирующие события, острый стресс."],
+  ["Профессиональное выгорание","Усталость, потеря смысла, восстановление ресурса."],
+  ["Психодиагностика","Тестирование и оценка эмоционального состояния."],
+];
+
+/* Иллюстрированный портрет (вместо фотографии) */
+function portrait(p){
+  const l=p.look;
+  const hair = {
+    long:`<path d="M58 92c0-34 18-52 42-52s42 18 42 52v70H58z" fill="${l.hair}"/>`,
+    short:`<path d="M66 86c0-24 14-38 34-38s34 14 34 38c-6-8-18-14-34-14s-28 6-34 14z" fill="${l.hair}"/>`,
+    bun:`<circle cx="100" cy="40" r="16" fill="${l.hair}"/><path d="M64 90c0-28 15-44 36-44s36 16 36 44c-8-12-20-18-36-18s-28 6-36 18z" fill="${l.hair}"/>`,
+    beard:`<path d="M66 86c0-24 14-38 34-38s34 14 34 38c-6-8-18-14-34-14s-28 6-34 14z" fill="${l.hair}"/><path d="M72 104c4 26 16 38 28 38s24-12 28-38c-6 10-16 14-28 14s-22-4-28-14z" fill="${l.hair}"/>`
+  }[l.style];
+  return `<svg viewBox="0 0 200 250" role="img" aria-label="Портрет: ${p.name}">
+    <rect width="200" height="250" fill="${l.bg}"/>
+    <circle cx="160" cy="44" r="26" fill="#FFFFFF" fill-opacity=".45"/>
+    ${l.style==="long"?hair:""}
+    <path d="M30 250c4-52 34-78 70-78s66 26 70 78z" fill="${l.shirt}"/>
+    <rect x="88" y="140" width="24" height="30" rx="10" fill="${l.skin}"/>
+    <ellipse cx="100" cy="98" rx="34" ry="42" fill="${l.skin}"/>
+    ${l.style!=="long"?hair:""}
+    <circle cx="87" cy="98" r="3" fill="#2B2B2B"/><circle cx="113" cy="98" r="3" fill="#2B2B2B"/>
+    <path d="M90 120q10 7 20 0" stroke="#7A4B3A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </svg>`;
+}
+
+/* Гистограмма динамики роста клиентов */
+function histogram(p){
+  const W=640,H=300,m={t:28,r:16,b:44,l:48};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, max=160, step=40;
+  const bw=iw/YEARS.length;
+  let g="";
+  for(let v=0; v<=max; v+=step){
+    const y=m.t+ih-(v/max)*ih;
+    g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`+
+       `<text x="${m.l-10}" y="${y+4}" text-anchor="end" font-size="12" fill="var(--muted)">${v}</text>`;
+  }
+  p.clients.forEach((v,i)=>{
+    const h=(v/max)*ih, x=m.l+i*bw+bw*0.2, y=m.t+ih-h, w=bw*0.6;
+    const last=i===p.clients.length-1;
+    g+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${last?"var(--accent)":"var(--sage)"}"/>`+
+       `<text x="${x+w/2}" y="${y-8}" text-anchor="middle" font-size="13" font-weight="600" fill="var(--fg)">${v}</text>`+
+       `<text x="${x+w/2}" y="${H-m.b+22}" text-anchor="middle" font-size="13" fill="var(--muted)">${YEARS[i]}</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Гистограмма: число клиентов по годам, ${p.name}">${g}</svg>`;
+}
+
+function navLinks(current){
+  const nav=document.getElementById("nav");
+  nav.querySelectorAll("a").forEach(a=>a.remove());
+  SPECIALISTS.forEach(p=>{
+    const a=document.createElement("a"); a.href="#"+p.id; a.textContent=p.name;
+    if(current===p.id) a.setAttribute("aria-current","page");
+    nav.appendChild(a);
+  });
+  const c=document.createElement("a"); c.href="#contacts"; c.textContent="Контакты";
+  if(current==="contacts") c.setAttribute("aria-current","page");
+  nav.appendChild(c);
+}
+
+function home(){
+  return `<div class="view">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Центр психологического консультирования</p>
+        <h1>Помогаем найти опору в трудный период</h1>
+        <p>«Точка опоры» объединяет психологов разных направлений. Мы консультируем взрослых, детей и семьи: помогаем справиться с тревогой, кризисом, конфликтами и выгоранием.</p>
+      </div>
+      <svg class="hero-art" width="300" height="240" viewBox="0 0 300 240" aria-hidden="true">
+        <circle cx="120" cy="120" r="100" fill="var(--surface)"/>
+        <circle cx="180" cy="120" r="70" fill="var(--sage)" fill-opacity=".8"/>
+        <circle cx="150" cy="205" r="14" fill="var(--sand)"/>
+      </svg>
+    </section>
+    <section>
+      <div class="section-head"><p class="eyebrow">Направления работы</p><h2>С чем мы помогаем</h2></div>
+      <div class="spheres">${SPHERES.map(([t,d])=>`<div class="sphere"><h3>${t}</h3><p>${d}</p></div>`).join("")}</div>
+    </section>
+    <section>
+      <div class="section-head"><p class="eyebrow">Команда</p><h2>Специалисты центра</h2></div>
+      <div class="team">${SPECIALISTS.map(p=>`<a class="person" href="#${p.id}"><div class="ph">${portrait(p)}</div><strong>${p.name}</strong><span>${p.role}</span></a>`).join("")}</div>
+    </section>
+  </div>`;
+}
+
+function specialist(p){
+  const i=SPECIALISTS.indexOf(p), next=SPECIALISTS[(i+1)%SPECIALISTS.length];
+  const growth=Math.round((p.clients[4]/p.clients[0]-1)*100);
+  return `<div class="view">
+    <p class="crumbs"><a href="#">Главная</a> / Специалисты / ${p.name}</p>
+    <section class="profile">
+      <div class="ph">${portrait(p)}</div>
+      <div class="about">
+        <div><h1>${p.name}</h1><p class="role">${p.role}</p></div>
+        ${p.about.map(t=>`<p>${t}</p>`).join("")}
+        <ul class="tags">${p.topics.map(t=>`<li>${t}</li>`).join("")}</ul>
+        <div class="facts">
+          <div class="fact"><b>${p.years} лет</b><span>опыт работы</span></div>
+          <div class="fact"><b>${p.clients[4]}</b><span>клиентов в 2025 году</span></div>
+          <div class="fact"><b>${p.format}</b><span>${p.method}</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="chart-block">
+      <p class="eyebrow">Динамика роста клиентов</p>
+      <h2>Число клиентов по годам, 2021–2025</h2>
+      <p>За пять лет число клиентов выросло с ${p.clients[0]} до ${p.clients[4]} человек (+${growth}%).</p>
+      <div class="chart">${histogram(p)}</div>
+    </section>
+    <nav class="next" aria-label="Другие специалисты"><a href="#">← На главную</a><a href="#${next.id}">Следующий специалист: ${next.name} →</a></nav>
+  </div>`;
+}
+
+function contacts(){
+  return `<div class="view">
+    <p class="crumbs"><a href="#">Главная</a> / Контакты</p>
+    <div class="section-head"><p class="eyebrow">Контакты</p><h1 style="font-size:clamp(30px,4.4vw,44px)">Как добраться до центра</h1></div>
+    <section class="contacts">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <dl>
+          <dt>Адрес</dt><dd>Москва, Яблоневый пер., д. 7, офис 12 (2 этаж)</dd>
+          <dt>Телефон</dt><dd>+7 (495) 000-00-00</dd>
+          <dt>Почта</dt><dd>hello@tochka-opory.example</dd>
+          <dt>Часы</dt><dd>Пн–Пт 9:00–21:00, Сб 10:00–18:00</dd>
+        </dl>
+        <div>
+          <h2 style="font-size:22px;margin-bottom:12px">Пешком от метро — 7 минут</h2>
+          <ol class="route">
+            <li>Выйдите из метро «Садовая» через выход № 2 на Липовую улицу.</li>
+            <li>Идите прямо по Липовой улице до перекрёстка с Яблоневым переулком (около 350 м).</li>
+            <li>Поверните направо в Яблоневый переулок и идите вдоль сквера.</li>
+            <li>За сквером сверните налево: дом 7 прямо перед вами, вход со двора, домофон 12.</li>
+          </ol>
+        </div>
+      </div>
+      <figure class="map" style="margin:0">
+        <svg viewBox="0 0 600 440" role="img" aria-label="Схема проезда от метро Садовая до центра">
+          <rect width="600" height="440" fill="var(--surface)"/>
+          <!-- кварталы -->
+          <g fill="var(--bg)" stroke="var(--line)">
+            <rect x="30" y="30" width="180" height="120" rx="6"/><rect x="250" y="30" width="150" height="120" rx="6"/><rect x="440" y="30" width="130" height="120" rx="6"/>
+            <rect x="30" y="190" width="180" height="90" rx="6"/><rect x="440" y="190" width="130" height="90" rx="6"/>
+            <rect x="30" y="320" width="180" height="90" rx="6"/><rect x="250" y="320" width="150" height="90" rx="6"/><rect x="440" y="320" width="130" height="90" rx="6"/>
+          </g>
+          <!-- сквер -->
+          <rect x="250" y="190" width="150" height="90" rx="6" fill="var(--sage)" fill-opacity=".35" stroke="var(--line)"/>
+          <text x="325" y="240" text-anchor="middle" font-size="13" fill="var(--muted)">Сквер</text>
+          <!-- улицы -->
+          <g font-size="13" fill="var(--muted)">
+            <text x="300" y="186" text-anchor="middle" font-size="12">Липовая ул.</text>
+            <text x="434" y="250" text-anchor="middle" font-size="12" transform="rotate(-90 434 250)">Яблоневый пер.</text>
+            <text x="505" y="306" text-anchor="middle">Садовая ул.</text>
+          </g>
+          <!-- маршрут -->
+          <path d="M70 170 H420 V300 H325 V322" fill="none" stroke="var(--sand)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"/>
+          <!-- метро -->
+          <circle cx="70" cy="170" r="15" fill="var(--accent)"/>
+          <text x="70" y="175" text-anchor="middle" font-size="14" font-weight="700" fill="var(--on-accent)">М</text>
+          <text x="70" y="208" text-anchor="middle" font-size="13" font-weight="600" fill="var(--fg)">«Садовая»</text>
+          <!-- центр -->
+          <g transform="translate(325 345)">
+            <circle r="22" fill="var(--accent)" fill-opacity=".18"/>
+            <circle r="11" fill="var(--accent)"/>
+          </g>
+          <text x="325" y="392" text-anchor="middle" font-size="14" font-weight="600" fill="var(--fg)">«Точка опоры», д. 7</text>
+          <!-- роза ветров -->
+          <g transform="translate(560 410)" fill="var(--muted)" font-size="12" text-anchor="middle"><path d="M0 -18 L5 -4 L-5 -4 Z" fill="var(--fg)"/><text y="10">С</text></g>
+        </svg>
+        <figcaption class="legend"><span><i style="background:var(--sand)"></i>Пешеходный маршрут (≈ 500 м)</span><span><i style="background:var(--accent)"></i>Метро и центр</span><span><i style="background:var(--sage)"></i>Сквер</span></figcaption>
+      </figure>
+    </section>
+  </div>`;
+}
+
+function render(){
+  const id=(location.hash||"").replace("#","");
+  const p=SPECIALISTS.find(s=>s.id===id);
+  const app=document.getElementById("app");
+  if(p){ app.innerHTML=specialist(p); document.title=p.name+" — Точка опоры"; }
+  else if(id==="contacts"){ app.innerHTML=contacts(); document.title="Контакты — Точка опоры"; }
+  else { app.innerHTML=home(); document.title="Центр «Точка опоры»"; }
+  navLinks(p?p.id:id);
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",render);
+render();
+</script>
+</body></html>
